@@ -1,5 +1,11 @@
 # Celery Crawler
 
+[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/LouisAmon/celery-crawler)
+
+<a href="https://heroku.com/deploy" target="_blank">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+</a>
+
 ## Webscraping through Celery
 
 Webscraping made easy using Requests, Celery and BeautifulSoup
