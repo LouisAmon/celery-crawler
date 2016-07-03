@@ -14,6 +14,17 @@ class AddTask(celery.Task):
     def run(a, b):
         return a + b
 
+@celery.task
+def fetch(url):
+    """
+    Utility function to test fecthing a single URL
+    """
+    response = requests.get(url=url)
+    LOGGER.info('%d: %s', response.status_code, response.url)
+    if response.status_code == requests.codes.OK:
+        return response.content
+    else:
+        return response.text
 
 class Crawler(celery.Task):
 
@@ -23,7 +34,11 @@ class Crawler(celery.Task):
         self.session = requests.Session()
         self.rdb = redis.Redis()
 
-    def run(self, url='https://httpbin.org/'):
+    def get(self, url, method='GET'):
+        """
+        Performs a non-blocking GET request using requests, eventlet and a Redis
+        set as a bloom filter
+        """
         # Check the cache before running a request
         already_crawled = self.rdb.smember(
             self.CRAWLED_URLS_REDIS_KEY,
@@ -31,7 +46,7 @@ class Crawler(celery.Task):
             )
         if already_crawled:
             LOGGER.info('Cache hit on URL: %s', url)
-            return
+            return already_crawled
         # Make HTTP GET request
         response = self.session.get(
             url=url,
@@ -46,3 +61,9 @@ class Crawler(celery.Task):
             # Do something with the content
             data = response.content
             return data
+        else:
+            return response.text
+
+    def run(self, url):
+        data = self.get(url)
+        return data

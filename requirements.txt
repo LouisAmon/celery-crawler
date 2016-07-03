@@ -1,4 +1,6 @@
 celery
+eventlet
+jobtastic
 redis
 requests
 beautifulsoup4

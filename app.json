@@ -2,14 +2,17 @@
   "name": "Celery Crawler",
   "description": "Webscraping made easy using Requests, Celery and BeautifulSoup",
   "repository": "https://github.com/LouisAmon/celery-crawler",
-  "website": "https://small-sharp-tool.com/",
-  "keywords": ["celery", "requests", "beautifulsoup", "webscraping"],
+  "website": "https://louisamon.github.io/celery-crawler",
+  "keywords": [
+    "celery",
+    "requests",
+    "beautifulsoup",
+    "webscraping"
+  ],
   "image": "heroku/python",
   "addons": [
     "heroku-redis:hobby-dev"
   ],
-  "env": {
-  },
   "buildpacks": [
     {
       "url": "heroku/python"
